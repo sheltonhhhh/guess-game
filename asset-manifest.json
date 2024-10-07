@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/sheltonhhhh/guess-game/static/css/main.82b4ef14.css",
-    "main.js": "/sheltonhhhh/guess-game/static/js/main.6220584d.js",
-    "static/js/453.2165ce42.chunk.js": "/sheltonhhhh/guess-game/static/js/453.2165ce42.chunk.js",
-    "static/media/timer-tick.mp3": "/sheltonhhhh/guess-game/static/media/timer-tick.83119040c5e52f81a73c.mp3",
-    "static/media/fa-solid-900.ttf": "/sheltonhhhh/guess-game/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
-    "static/media/fa-brands-400.ttf": "/sheltonhhhh/guess-game/static/media/fa-brands-400.0ff70dcbf135d859ebf3.ttf",
-    "static/media/fa-solid-900.woff2": "/sheltonhhhh/guess-game/static/media/fa-solid-900.93f719f4d62bfa3e748c.woff2",
-    "static/media/fa-brands-400.woff2": "/sheltonhhhh/guess-game/static/media/fa-brands-400.bb8d5a145e22822103fb.woff2",
-    "static/media/fa-regular-400.ttf": "/sheltonhhhh/guess-game/static/media/fa-regular-400.17a6e1aebccdbaa39e78.ttf",
-    "static/media/leftClick.mp3": "/sheltonhhhh/guess-game/static/media/leftClick.527669a74e504d83de59.mp3",
-    "static/media/fa-regular-400.woff2": "/sheltonhhhh/guess-game/static/media/fa-regular-400.bc3722686635b5f86132.woff2",
-    "static/media/rightClick.mp3": "/sheltonhhhh/guess-game/static/media/rightClick.1bf9a7d37deea785edde.mp3",
-    "static/media/fa-v4compatibility.ttf": "/sheltonhhhh/guess-game/static/media/fa-v4compatibility.0f6cb412603527bda691.ttf",
-    "static/media/fa-v4compatibility.woff2": "/sheltonhhhh/guess-game/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
-    "index.html": "/sheltonhhhh/guess-game/index.html",
-    "main.82b4ef14.css.map": "/sheltonhhhh/guess-game/static/css/main.82b4ef14.css.map",
-    "main.6220584d.js.map": "/sheltonhhhh/guess-game/static/js/main.6220584d.js.map",
-    "453.2165ce42.chunk.js.map": "/sheltonhhhh/guess-game/static/js/453.2165ce42.chunk.js.map"
+    "main.css": "/guess-game/static/css/main.db18fd50.css",
+    "main.js": "/guess-game/static/js/main.92399d68.js",
+    "static/js/453.2165ce42.chunk.js": "/guess-game/static/js/453.2165ce42.chunk.js",
+    "static/media/timer-tick.mp3": "/guess-game/static/media/timer-tick.83119040c5e52f81a73c.mp3",
+    "static/media/fa-solid-900.ttf": "/guess-game/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
+    "static/media/fa-brands-400.ttf": "/guess-game/static/media/fa-brands-400.0ff70dcbf135d859ebf3.ttf",
+    "static/media/fa-solid-900.woff2": "/guess-game/static/media/fa-solid-900.93f719f4d62bfa3e748c.woff2",
+    "static/media/fa-brands-400.woff2": "/guess-game/static/media/fa-brands-400.bb8d5a145e22822103fb.woff2",
+    "static/media/fa-regular-400.ttf": "/guess-game/static/media/fa-regular-400.17a6e1aebccdbaa39e78.ttf",
+    "static/media/leftClick.mp3": "/guess-game/static/media/leftClick.527669a74e504d83de59.mp3",
+    "static/media/fa-regular-400.woff2": "/guess-game/static/media/fa-regular-400.bc3722686635b5f86132.woff2",
+    "static/media/rightClick.mp3": "/guess-game/static/media/rightClick.1bf9a7d37deea785edde.mp3",
+    "static/media/fa-v4compatibility.ttf": "/guess-game/static/media/fa-v4compatibility.0f6cb412603527bda691.ttf",
+    "static/media/fa-v4compatibility.woff2": "/guess-game/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
+    "index.html": "/guess-game/index.html",
+    "main.db18fd50.css.map": "/guess-game/static/css/main.db18fd50.css.map",
+    "main.92399d68.js.map": "/guess-game/static/js/main.92399d68.js.map",
+    "453.2165ce42.chunk.js.map": "/guess-game/static/js/453.2165ce42.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.82b4ef14.css",
-    "static/js/main.6220584d.js"
+    "static/css/main.db18fd50.css",
+    "static/js/main.92399d68.js"
   ]
 }
