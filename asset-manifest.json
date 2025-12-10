@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/guess-game/static/css/main.a64406e9.css",
-    "main.js": "/guess-game/static/js/main.ba37e7c7.js",
+    "main.js": "/guess-game/static/js/main.e79b1773.js",
     "static/js/453.2165ce42.chunk.js": "/guess-game/static/js/453.2165ce42.chunk.js",
     "static/media/timer-tick.mp3": "/guess-game/static/media/timer-tick.83119040c5e52f81a73c.mp3",
     "static/media/fa-solid-900.ttf": "/guess-game/static/media/fa-solid-900.07ed6d5fa32c1d54af0f.ttf",
@@ -16,11 +16,11 @@
     "static/media/fa-v4compatibility.woff2": "/guess-game/static/media/fa-v4compatibility.6cfec8414be20e2c3426.woff2",
     "index.html": "/guess-game/index.html",
     "main.a64406e9.css.map": "/guess-game/static/css/main.a64406e9.css.map",
-    "main.ba37e7c7.js.map": "/guess-game/static/js/main.ba37e7c7.js.map",
+    "main.e79b1773.js.map": "/guess-game/static/js/main.e79b1773.js.map",
     "453.2165ce42.chunk.js.map": "/guess-game/static/js/453.2165ce42.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a64406e9.css",
-    "static/js/main.ba37e7c7.js"
+    "static/js/main.e79b1773.js"
   ]
 }
