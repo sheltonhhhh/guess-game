@@ -1,35 +1,34 @@
 import React from 'react';
 
-const CategoryCard = ({ subgenre, itemCount, selectedSubgenre, handleSubgenreChange,icon,multiSelect }) => {
-  //console.log("Selected Subgenre in ", subgenre," category card",selectedSubgenre," and multiselect: ", multiSelect)
-  // Determine the icon based on the selection state and multiSelect
-  //console.log("genre: ",genre)
+const CategoryCard = ({ subgenre, itemCount, selectedSubgenre, handleSubgenreChange, icon, multiSelect }) => {
   const iconClass = multiSelect
-    ? (selectedSubgenre ? 'fa-check-square' : 'fa-square') // Multi-select logic
-    : (selectedSubgenre ? 'fa-check-circle' : 'fa-circle'); // Single-select logic
+    ? (selectedSubgenre ? 'fa-check-square' : 'fa-square')
+    : (selectedSubgenre ? 'fa-check-circle' : 'fa-circle');
 
   return (
-    <div className={`category-card p-4 border-2 border-bgLightSecondary w-full md:w-1/3 ${selectedSubgenre ? 'selected' : ''}`} onClick={handleSubgenreChange}>
-      
-        <input
-          type={multiSelect ? "checkbox" : "radio"}
-          name="subgenre"
-          value={subgenre}
-          checked={selectedSubgenre}
-          onChange={handleSubgenreChange} // Ensure this is correct
-          style={{ display: 'none' }} // Hide the default radio button
-        />
-        <div className="card-content ">
-          <div className=" flex flex-row  justify-between">
-            <div className='flex flex-row items-baseline gap-1'>
-              <i className={`fas ${icon} fa-lg`}></i>
-              <h4 className='h4'>{subgenre}</h4>
-            </div>
-            
-            <i className={`fas ${iconClass}`}></i>
+    <div
+      className={`p-4 border border-slate-700 bg-slate-900 rounded-xl w-full md:w-1/3 cursor-pointer transition-all hover:border-blue-500 hover:shadow-lg hover:shadow-blue-900/20 ${selectedSubgenre ? 'border-blue-500 ring-1 ring-blue-500 bg-slate-800' : ''}`}
+      onClick={handleSubgenreChange}
+    >
+      <input
+        type={multiSelect ? "checkbox" : "radio"}
+        name="subgenre"
+        value={subgenre}
+        checked={selectedSubgenre}
+        onChange={handleSubgenreChange}
+        style={{ display: 'none' }}
+      />
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-row justify-between items-center text-white">
+          <div className='flex flex-row items-center gap-2'>
+            <i className={`fas ${icon} text-lg text-slate-400`}></i>
+            <h4 className='font-bold text-lg'>{subgenre}</h4>
           </div>
-          <p className="body-small-strong pt-4">{itemCount} items</p>
+
+          <i className={`fas ${iconClass} ${selectedSubgenre ? 'text-blue-500' : 'text-slate-600'}`}></i>
         </div>
+        <p className="text-slate-400 text-sm font-medium">{itemCount} items</p>
+      </div>
     </div>
   );
 };

@@ -7,7 +7,7 @@ import timerTickSound from '../assets/sounds/timer-tick.mp3'; // Adjust the path
 
 const GamePage = () => {
     const { gameData } = useContext(GameContext);
-    const { number_players, number_turns, time_per_turn, List, selectedSubgenre } = gameData; // Ensure selectedSubgenre is included
+    const { number_players, number_turns, time_per_turn, List, player_names } = gameData;
     const navigate = useNavigate();
     //console.log("List:", List);
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
@@ -15,7 +15,11 @@ const GamePage = () => {
     const [timeRemaining, setTimeRemaining] = useState(time_per_turn);
     const [isTransitioning, setIsTransitioning] = useState(false);
     const [results, setResults] = useState(
-        Array.from({ length: number_players }, () => ({ correctAnswers: 0, totalAnswers: 0 }))
+        Array.from({ length: number_players }, (_, i) => ({
+            name: player_names?.[i] || `Player ${i + 1}`,
+            correctAnswers: 0,
+            totalAnswers: 0
+        }))
     );
     const [usedElements, setUsedElements] = useState([]);
     const [timerAudio] = useState(new Audio(timerTickSound));
@@ -65,6 +69,11 @@ const GamePage = () => {
     }, [timeRemaining, isTransitioning, timerAudio, isAudioPlaying]);
 
     const gameEnd = () => {
+        // Need to ensure we pass the LATEST results
+        // Using functional state update in handleEndTurn/UpdateResults usually, 
+        // but here we are in a closure. 
+        // 'results' state variable is updated on each render.
+        // It should be fine as gameEnd is called when valid.
         navigate('/game-end', { state: { results } });
     };
 
@@ -78,15 +87,15 @@ const GamePage = () => {
     };
 
     const updateResults = (correct) => {
-        
+
         setResults((prevResults) => {
-            
+
             const newResults = [...prevResults];
             const playerIndex = currentPlayerIndex;
             newResults[playerIndex].totalAnswers += 0.5;
             if (correct) {
                 newResults[playerIndex].correctAnswers += 0.5;
-                
+
             }
             //console.log("NewResults: ",newResults)
             return newResults;
@@ -104,8 +113,7 @@ const GamePage = () => {
         return randomItem;
     }
 
-    const currentPlayer = currentPlayerIndex + 1;
-    const nextPlayer = (currentPlayerIndex + 1) % number_players + 1;
+    const currentPlayerName = player_names?.[currentPlayerIndex] || `Player ${currentPlayerIndex + 1}`;
 
     // Find the selected subgenre's items
 
@@ -114,12 +122,17 @@ const GamePage = () => {
     return (
         <div className="game-page">
             {isTransitioning ? (
-                <TransitionScreen currentPlayer={currentPlayer} onProceed={handleProceed} />
+                <TransitionScreen currentPlayer={currentPlayerName} onProceed={handleProceed} />
             ) : (
-                <div>
-                    <h2 className='h1 pb-5'>Turn {currentTurn}: Player {currentPlayer} </h2>
-                    {  /* <h3>Time Remaining: {timeRemaining}s</h3> */ }
-                    <GameBoard currentPlayer={currentPlayer} array={selectedSubgenreItems} timer={timeRemaining} getRandomElement={getRandomElement} updateResults={updateResults} />
+                <div className="h-screen w-screen">
+                    <GameBoard
+                        currentPlayer={currentPlayerName}
+                        playerIndex={currentPlayerIndex}
+                        array={selectedSubgenreItems}
+                        timer={timeRemaining}
+                        getRandomElement={getRandomElement}
+                        updateResults={updateResults}
+                    />
                 </div>
             )}
         </div>

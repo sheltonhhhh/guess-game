@@ -1,180 +1,189 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListPicker from '../components/ListPicker';
 import { GameContext } from '../context/GameContext';
 import { premadeLists } from '../data/lists';
 
 const GameSetup = () => {
-  const { setGameData } = useContext(GameContext);
+  const { gameData, setGameData } = useContext(GameContext);
   const navigate = useNavigate();
-  const [numPlayers, setNumPlayers] = useState(2);
-  const [numTurns, setNumTurns] = useState(2);
-  const [timePerPlayer, setTimePerPlayer] = useState(90);
-  const [selectedSubgenreItems, setSelectedSubgenreItems] = useState([]);
-  const [selectedSubgenres, setSelectedSubgenres] = useState([]); // Array for selected subgenres
-  const [customList, setCustomList] = useState(null);
-  const [multiSelect, setMultiSelect] = useState(false);
 
-  /*
-  useEffect(() => {
-    setGameData({
-      number_players: 1,
-      number_turns: 1,
-      time_per_turn: 30,
-      List: [
-        { name: 'Drama', items: ['Movie1', 'Movie2'] },
-        { name: 'Comedy', items: ['Movie3', 'Movie4'] },
-      ],
-    });
-  }, [setGameData]);
+  // Initialize state from context if available, otherwise default
+  const [numPlayers, setNumPlayers] = useState(gameData.number_players || 2);
+  const [playerNames, setPlayerNames] = useState(gameData.player_names || Array(2).fill(''));
+  const [isNamesOpen, setIsNamesOpen] = useState(false);
+  const [numTurns, setNumTurns] = useState(gameData.number_turns || 2);
+  const [timePerPlayer, setTimePerPlayer] = useState(gameData.time_per_turn || 90);
 
-  useEffect(() => {
-    console.log("Selected Subgenre Items: ", selectedSubgenreItems);
-}, [selectedSubgenreItems]);
+  // List picker state persistence
+  const [selectedSubgenreItems, setSelectedSubgenreItems] = useState(gameData.List || []);
+  const [selectedSubgenres, setSelectedSubgenres] = useState(gameData.selectedSubgenres || []);
+  const [customList, setCustomList] = useState(gameData.customList || null);
+  const [multiSelect, setMultiSelect] = useState(gameData.multiSelect || false);
 
-useEffect(() => {
-    console.log("Selected Subgenres: ", selectedSubgenres);
-}, [selectedSubgenres]);
-  */
-  
   const onSubgenreSelect = (category, subgenre) => {
-    // Handle selection logic for multiple subgenres
     if (multiSelect) {
-        setSelectedSubgenres((prev) => {
-            const isSelected = prev.includes(subgenre);
-            const newSubgenres = isSelected 
-                ? prev.filter((sub) => sub !== subgenre) // Remove if already selected
-                : [...prev, subgenre]; // Add to selected subgenres
+      setSelectedSubgenres((prev) => {
+        const isSelected = prev.includes(subgenre);
+        const newSubgenres = isSelected
+          ? prev.filter((sub) => sub !== subgenre)
+          : [...prev, subgenre];
 
-            const items = category === "Custom List" ? customList.items : premadeLists[category]?.find(item => item.name === subgenre)?.items || []; 
-            if (isSelected) {
-                // If the subgenre is being removed, filter out its items
-                setSelectedSubgenreItems((prevItems) => prevItems.filter(item => !items.includes(item)));
-            } else {
-                // If the subgenre is being added, concatenate its items
-                setSelectedSubgenreItems((prevItems) => [...prevItems, ...items]);
-            }
-            return newSubgenres;
-        });
-    } else {
-        if (premadeLists[category]) {
-            const items = premadeLists[category].find(item => item.name === subgenre)?.items || [];
-            setSelectedSubgenres([subgenre]); // Update the selected subgenre
-            setSelectedSubgenreItems(items); // Update the selected subgenre items
-            
-        } else if (customList) {
-            // If the category is not in premadeLists, check if customList exists
-            const items = customList.items; // Get items directly from the custom list
-            setSelectedSubgenres([subgenre]); // Update the selected subgenre
-            setSelectedSubgenreItems(items); // Update the selected subgenre items
+        const items = category === "Custom List" ? customList.items : premadeLists[category]?.find(item => item.name === subgenre)?.items || [];
+        if (isSelected) {
+          setSelectedSubgenreItems((prevItems) => prevItems.filter(item => !items.includes(item)));
         } else {
-            console.error(`Category "${category}" does not exist in any lists.`);
+          setSelectedSubgenreItems((prevItems) => [...prevItems, ...items]);
         }
-      };
-    }
-  
-  // Form validation function
+        return newSubgenres;
+      });
+    } else {
+      if (premadeLists[category]) {
+        const items = premadeLists[category].find(item => item.name === subgenre)?.items || [];
+        setSelectedSubgenres([subgenre]);
+        setSelectedSubgenreItems(items);
+      } else if (customList) {
+        const items = customList.items;
+        setSelectedSubgenres([subgenre]);
+        setSelectedSubgenreItems(items);
+      }
+    };
+  }
+
   const validateForm = () => {
-    if (numPlayers < 1 || numPlayers > 10) {
-      alert('Please enter a valid number of players (1-10)');
-      return false;
-    }
-    if (numTurns < 1 || numTurns > 3) {
-      alert('Please enter a valid number of turns (1-3)');
-      return false;
-    }
-    if (timePerPlayer < 10 || timePerPlayer > 180) {
-      alert('Please enter a valid time per player (10-90 seconds)');
-      return false;
-    }
-    if (selectedSubgenreItems.length === 0) {
-      alert('Please select a list');
-      return false;
-    }
-    return true; // Return true if all validations pass
+    if (numPlayers < 1 || numPlayers > 10) { alert('Please enter a valid number of players (1-10)'); return false; }
+    if (numTurns < 1 || numTurns > 3) { alert('Please enter a valid number of turns (1-3)'); return false; }
+    if (timePerPlayer < 10 || timePerPlayer > 180) { alert('Please enter a valid time per player (10-90 seconds)'); return false; }
+    if (selectedSubgenreItems.length === 0) { alert('Please select a list'); return false; }
+    return true;
   };
 
   const startGame = () => {
-    // Validate inputs before proceeding
     if (validateForm()) {
-      // Update global game data with the selected values
+      const finalPlayerNames = Array.from({ length: numPlayers }, (_, i) =>
+        playerNames[i]?.trim() || `Player ${i + 1}`
+      );
+
       setGameData({
         number_players: numPlayers,
         number_turns: numTurns,
         time_per_turn: timePerPlayer,
         List: selectedSubgenreItems,
+        player_names: finalPlayerNames,
+        // Persist UI state
+        selectedSubgenres: selectedSubgenres,
+        multiSelect: multiSelect,
+        customList: customList
       });
-      //console.log("Selected Subgenre final :", selectedSubgenreItems);
-
-      /* Log the game data object for debugging purposes
-      console.log({
-        number_players: numPlayers,
-        number_turns: numTurns,
-        time_per_turn: timePerPlayer,
-        List: selectedSubgenreItems,
-      }); */
-
-      // Navigate to GamePage after setting game data
-      navigate('/game-page'); // Change this to the correct path for GamePage
+      navigate('/game-page');
     }
   };
 
   return (
-    <div className='flex flex-col gap-12'>
-      <section>
-        <h2 className='h3 pd-3'>Game Setup</h2>
-        <div className='flex flex-col md:flex-row gap-6'>
-          <div className='flex flex-col w-full'>
-            <label>Number of Players (1-10): </label>
-            <input 
-            className='p-3 bg-bgDarkPrimary border border-bgLightSecondary text-body-meduim'
-              type="number" 
-              value={numPlayers} 
-              onChange={(e) => setNumPlayers(Number(e.target.value))} 
-              min={1} 
-              max={10} 
-            />
+    <div className='flex flex-col gap-8 max-w-2xl mx-auto'>
+      <section className="animate-slide-up" style={{ animationDelay: '0.1s' }}>
+        <div className="bg-slate-900 rounded-xl border border-slate-800 p-6">
+          <h3 className='text-lg font-bold text-white mb-4 flex items-center gap-2'>
+            <i className="fas fa-users text-blue-500"></i> Player Details
+          </h3>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
+            <div className='flex flex-col gap-2'>
+              <label className="text-slate-400 text-sm font-medium">Number of Players</label>
+              <input
+                className='w-full p-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all'
+                type="number"
+                value={numPlayers}
+                onChange={(e) => {
+                  const val = Number(e.target.value);
+                  setNumPlayers(val);
+                  // Resize player names array
+                  setPlayerNames(prev => {
+                    const newNames = [...prev];
+                    if (val > prev.length) {
+                      for (let i = prev.length; i < val; i++) newNames.push('');
+                    } else if (val < prev.length) {
+                      newNames.length = val;
+                    }
+                    return newNames;
+                  });
+                }}
+                min={1}
+                max={10}
+              />
+            </div>
+            <div className='flex flex-col gap-2'>
+              <label className="text-slate-400 text-sm font-medium">Number of Turns</label>
+              <input
+                className='w-full p-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all'
+                type="number"
+                value={numTurns}
+                onChange={(e) => setNumTurns(Number(e.target.value))}
+                min={1}
+                max={3}
+              />
+            </div>
+            <div className='flex flex-col gap-2 md:col-span-2'>
+              <label className="text-slate-400 text-sm font-medium">Time per Player (seconds)</label>
+              <input
+                className='w-full p-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all'
+                type="number"
+                value={timePerPlayer}
+                onChange={(e) => setTimePerPlayer(Number(e.target.value))}
+                min={10}
+                max={180}
+              />
+            </div>
           </div>
-          <div className='flex flex-col w-full'>
-            <label>Number of Turns (1-3): </label>
-            <input 
-              type="number" 
-              value={numTurns} 
-              onChange={(e) => setNumTurns(Number(e.target.value))} 
-              min={1} 
-              max={3} 
-            />
-          </div>
-          <div className='flex flex-col w-full'>
-            <label>Time per Player (seconds, 10-180): </label>
-            <input 
-                className='p-3 bg-bgDarkPrimary border border-bgLightSecondary text-body-meduim'
-              type="number" 
-              value={timePerPlayer} 
-              onChange={(e) => setTimePerPlayer(Number(e.target.value))} 
-              min={10} 
-              max={180} 
-            />
+
+          <div className="space-y-4 pt-2 border-t border-slate-800">
+            <button
+              onClick={() => setIsNamesOpen(!isNamesOpen)}
+              className="w-full flex items-center justify-between text-left group"
+            >
+              <span className="text-sm text-slate-400 font-medium group-hover:text-white transition-colors">Edit Player Names (Optional)</span>
+              <i className={`fas fa-chevron-down text-slate-500 transition-transform duration-300 ${isNamesOpen ? 'rotate-180' : ''}`}></i>
+            </button>
+
+            <div className={`grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-hidden transition-all duration-300 ease-in-out ${isNamesOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+              {Array.from({ length: numPlayers }).map((_, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  placeholder={`Player ${index + 1}`}
+                  value={playerNames[index] || ''}
+                  onChange={(e) => {
+                    const newNames = [...playerNames];
+                    newNames[index] = e.target.value;
+                    setPlayerNames(newNames);
+                  }}
+                  className="w-full p-3 bg-slate-950 border border-slate-700 rounded-lg text-white focus:ring-2 focus:ring-blue-600 focus:border-transparent outline-none transition-all placeholder:text-slate-600"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
-      
-      {/* ListPicker component to select a subgenre */}
-      <section>
-        <ListPicker 
-          selectedSubgenre={selectedSubgenres} // Pass the array of selected subgenres
-          setSelectedSubgenre={setSelectedSubgenres} // Pass the setter function
-          onSubgenreSelect={onSubgenreSelect} // Pass the handler function
-          customList={customList} // Pass customList as a prop
-          setCustomList={setCustomList} // Setter function for custom list
-          multiSelect={multiSelect} // Multi-select state
-          setMultiSelect={setMultiSelect} // Setter function for multi-select
+
+      <section className="animate-slide-up" style={{ animationDelay: '0.2s' }}>
+        <ListPicker
+          selectedSubgenre={selectedSubgenres}
+          setSelectedSubgenre={setSelectedSubgenres}
+          onSubgenreSelect={onSubgenreSelect}
+          customList={customList}
+          setCustomList={setCustomList}
+          multiSelect={multiSelect}
+          setMultiSelect={setMultiSelect}
         />
       </section>
-      
-      {/* Start Game button */}
-      <div className='bottom-bar'>
-        <button onClick={startGame}>Start Game</button>
+
+      <div className='fixed bottom-0 left-0 right-0 p-4 bg-slate-950/80 backdrop-blur border-t border-slate-800 md:relative md:bg-transparent md:border-0 md:p-0 animate-slide-up' style={{ animationDelay: '0.3s' }}>
+        <button
+          onClick={startGame}
+          className="w-full md:w-auto px-8 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg transition-colors shadow-lg shadow-blue-600/20"
+        >
+          Start Game
+        </button>
       </div>
     </div>
   );

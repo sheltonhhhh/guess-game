@@ -1,7 +1,6 @@
 export const premadeLists = {
   Celebrities: [
     {
-      description: "Celebrities are people who are known for their fame and popularity. They can be actors, athletes, musicians, or other public figures. Some popular celebrities include Justin Bieber, LeBron James, and Taylor Swift.",
       hardmode_requirements: ["profession", "years famous", "birthplace"],
     },
     {
@@ -54,10 +53,160 @@ export const premadeLists = {
       ]
     }
   ],
+  Food: [
+    { hardmode_requirements: ["type", "origin", "name"] },
+    ,
+    {
+      name: "Indian",
+      icon: "fa-drumstick-bite",
+      items: [
+        "Biryani",
+        "Butter Chicken",
+        "Paneer Tikka",
+        "Masala Dosa",
+        "Chole Bhature",
+        "Rogan Josh",
+        "Tandoori Chicken",
+        "Samosa",
+        "Dhokla",
+        "Palak Paneer",
+        "Vada Pav",
+        "Aloo Gobi",
+        "Dal Makhani",
+        "Idli",
+        "Rasam",
+        "Pani Puri",
+        "Pav Bhaji",
+        "Korma",
+        "Naan",
+        "Paratha",
+        "Vindaloo",
+        "Fish Curry",
+        "Lassi",
+        "Gulab Jamun",
+        "Jalebi",
+        "Kheer",
+        "Bhindi Masala",
+        "Chicken Tikka Masala",
+        "Matar Paneer",
+        "Pongal",
+        "Upma",
+        "Poha",
+        "Bhature",
+        "Malai Kofta",
+        "Prawn Curry",
+        "Hyderabadi Biryani",
+        "Keema",
+        "Rajma",
+        "Saag Paneer",
+        "Lamb Curry",
+        "Kachori",
+        "Chicken Chettinad",
+        "Goan Fish Curry",
+        "Baingan Bharta",
+        "Khichdi",
+        "Chana Masala",
+        "Methi Chicken",
+        "Paneer Butter Masala",
+        "Tomato Rasam",
+        "Cabbage Poriyal",
+        "Egg Curry",
+        "Mutton Curry",
+        "Vegetable Biryani",
+        "Masala Chai",
+        "Aloo Paratha",
+        "Chicken 65",
+        "Palak Chole",
+        "Gobi Manchurian",
+        "Mutton Rogan Josh",
+        "Prawn Masala",
+        "Tamarind Rice",
+        "Vermicelli Upma",
+        "Paneer Bhurji",
+        "Aloo Tikki",
+        "Rava Dosa",
+        "Curd Rice",
+        "Pesarattu",
+        "Chicken Korma",
+        "Prawn Biryani",
+        "Beef Curry",
+        "Lamb Biryani",
+        "Malabar Parotta",
+        "Sheer Khurma",
+        "Dal Tadka",
+        "Bhatura",
+        "Mutton Keema",
+        "Idiyappam",
+        "Prawn Fry",
+        "Chili Chicken",
+        "Vegetable Korma"
+      ]
+
+
+
+    }
+
+  ],
+  "Video Games": [
+    {
+      hardmode_requirements: ["genre", "developer", "release year"],
+    },
+    {
+      name: "All games",
+      icon: "fa-gamepad",
+      items: [
+        "Minecraft",
+        "Tetris",
+        "Grand Theft Auto V",
+        "Wii Sports",
+        "Red Dead Redemption 2",
+        "PPUBG",
+        "Mario Kart 8 Deluxe",
+        "Super Mario Bros.",
+        "The Elder Scrolls V: Skyrim",
+        "The Witcher 3: Wild Hunt",
+        "Animal Crossing: New Horizons",
+        "Elden Ring",
+        "Sekiro: Shadows Die Twice",
+        "It Takes Two",
+        "Candy Crush Saga",
+        "Fortnite",
+        "Among Us",
+        "Halo: The Master Chief Collection",
+        "Call of Duty",
+        "Super Smash Bros. Ultimate",
+        "Pokémon",
+        "God of War Ragnarök",
+        "The Last of Us",
+        "Ghost of Tsushima",
+        "Cyberpunk 2077",
+        "Assassin’s Creed",
+        "The Legend of Zelda: Breath of the Wild",
+        "The Legend of Zelda: Tears of the Kingdom",
+        "Dark Souls (",
+        "Bloodborne",
+        "Fallout ",
+        "Stardew Valley",
+        "Cuphead",
+        "Baldur’s Gate 3",
+        "Rocket League",
+        "FIFA ",
+        "NBA 2K )",
+        "Civilization VI",
+        "Fortnite",
+        "Roblox",
+        "Clash of Clans",
+        "Subway Surfers",
+        "League of Legends",
+        "World of Warcraft",
+        "The Sims "
+      ]
+
+
+    },
+  ],
   Movies: [
     {
-      description:
-        "Action movies are a genre of film that focus on exciting and thrilling physical confrontations, often with a focus on violence and suspense. Action movies can range from martial arts to car chases, and often feature a hero who must overcome a dangerous enemy or obstacle. Some popular action movies include Die Hard, Mad Max, Gladiator, John Wick, and Terminator 2: Judgment Day.",
       hardmode_requirements: ["Names of actors", "Directors", "Year of movie"],
     },
     {
@@ -84,8 +233,6 @@ export const premadeLists = {
     {
       name: "Comedy",
       icon: "fa-film",
-      description:
-        "Comedy movies are designed to elicit laughter and amusement from the audience. They can encompass a variety of styles, including romantic comedies, slapstick, and satire. Some notable comedy films include Superbad, The Hangover, and Bridesmaids.",
       hardmode_requirements: ["Names of actors", "Directors", "Year of movie"],
       items: [
         "Superbad", "The Hangover", "Bridesmaids", "Groundhog Day", "Step Brothers",
@@ -100,8 +247,6 @@ export const premadeLists = {
     {
       name: "Drama",
       icon: "fa-film",
-      description:
-        "Drama movies focus on the emotional and relational development of characters, often depicting real-life situations or complex relationships. They can be deeply moving and thought-provoking. Some acclaimed drama films include The Godfather, Schindler's List, and Fight Club.",
       hardmode_requirements: ["Names of actors", "Directors", "Year of movie"],
       items: [
         "The Godfather", "Schindler's List", "Shawshank Redemption", "Fight Club", "Forrest Gump",
@@ -123,8 +268,6 @@ export const premadeLists = {
   ],
   Songs: [
     {
-      description:
-        "Pop music is a genre of popular music that originated in the United States in the late 1950s and early 1960s. It is characterized by catchy melodies, simple lyrics, and often features a lead singer. Pop music has evolved over the years to include various subgenres such as bubblegum pop, disco, and synth-pop. Some popular pop artists include Madonna, Michael Jackson, Prince, and Beyoncé.",
       hardmode_requirements: ["Artist names", "Release year"],
     },
     {
@@ -151,8 +294,6 @@ export const premadeLists = {
     {
       name: "Rock",
       icon: "fa-film",
-      description:
-        "Rock music is a genre that originated in the 1950s, characterized by a strong beat, simple melodies, and often revolves around the electric guitar. It includes subgenres such as classic rock, punk rock, and alternative rock. Notable rock bands and artists include The Beatles, Led Zeppelin, and Nirvana.",
       hardmode_requirements: ["Artist names", "Release year"],
       items: [
         "Bohemian Rhapsody", "Hotel California", "Stairway to Heaven", "Sweet Child O' Mine", "Smells Like Teen Spirit",
@@ -171,8 +312,6 @@ export const premadeLists = {
   ],
   TVShows: [
     {
-      description:
-        "TV shows encompass a wide range of genres, including drama, comedy, and reality TV. They can be episodic or serial, with story arcs that unfold over time. Notable TV shows include Friends, Breaking Bad, and Game of Thrones.",
       hardmode_requirements: ["Names of actors", "Year of release"],
     },
     {

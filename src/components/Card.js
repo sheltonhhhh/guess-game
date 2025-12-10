@@ -3,16 +3,16 @@ import leftClickSound from '../assets/sounds/left_and_right/leftClick.mp3'; // A
 import rightClickSound from '../assets/sounds/left_and_right/rightClick.mp3'; // Adjust the path as necessary
 
 export default function Card({ value, handleCardClick, timerValue }) {
-    const handleLeftClick = (e) => {
-        e.stopPropagation(); // Prevent event bubbling
-        handleCardClick('left', value);
-        playSound(leftClickSound);
-    };
-
-    const handleRightClick = (e) => {
-        e.stopPropagation(); // Prevent event bubbling
+    const handleCorrect = (e) => {
+        e.stopPropagation();
         handleCardClick('right', value);
         playSound(rightClickSound);
+    };
+
+    const handleSkip = (e) => {
+        e.stopPropagation();
+        handleCardClick('left', value); // 'left' maps to incorrect/skip in GameBoard
+        playSound(leftClickSound);
     };
 
     const playSound = (soundFile) => {
@@ -20,40 +20,50 @@ export default function Card({ value, handleCardClick, timerValue }) {
         audio.play();
         setTimeout(() => {
             audio.pause();
-            audio.currentTime = 0; // Reset audio to start
-        }, 2000); // Stop after 2 seconds
+            audio.currentTime = 0;
+        }, 2000);
     };
 
     const handleKeyDown = (e) => {
-        if (e.key === 'ArrowDown') {
-            handleLeftClick(e);
-        } else if (e.key === 'ArrowRight') {
-            handleRightClick(e);
+        if (e.key === 'ArrowLeft') { // Map Left Arrow to Check (Visual Left)
+            handleCorrect(e);
+        } else if (e.key === 'ArrowRight') { // Map Right Arrow to X (Visual Right)
+            handleSkip(e);
         }
     };
 
     useEffect(() => {
-        // Add event listener for keydown
         window.addEventListener('keydown', handleKeyDown);
-
-        // Cleanup the event listener on component unmount
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-        };
+        return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
     return (
-        <div className="playcard flex">
-            <div className="absolute min-w-[80%] z-0 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4 justify-center items-center">
-                <h5 className="h1 sm:display-large text-center">{value}</h5>
-                <div className="timer pt-4 h3 sm:h1 ">{timerValue}</div> 
+        <div className="fixed inset-0 flex flex-col h-screen w-screen bg-white">
+            {/* Card Content */}
+            <div className="bg-gray-900 flex-1 flex flex-col justify-center items-center relative">
+
+                <h5 className="text-6xl font-bold text-white text-center px-4 break-words">{value}</h5>
+                {timerValue !== undefined && <div className="absolute top-8 right-8 text-2xl font-bold text-gray-500">{timerValue}</div>}
             </div>
-            <div className="playcard-icons z-0">
-                <i className="fas fa-arrow-right fa-2xl"></i>
-                <i className="fas fa-arrow-down fa-2xl"></i>
+
+            {/* Buttons Container */}
+            <div className="h-48 flex w-full">
+                {/* Green Check / Correct (Visual Left) */}
+                <button
+                    onClick={handleCorrect}
+                    className="flex-1 bg-[#C1E1C1] hover:bg-[#A8D5A8] active:bg-[#8FC98F] flex justify-center items-center transition-colors duration-200 border-none m-0 rounded-none w-1/2 min-w-0"
+                >
+                    <i className="fas fa-check fa-4x text-green-700"></i>
+                </button>
+
+                {/* Red X / Skip (Visual Right) */}
+                <button
+                    onClick={handleSkip}
+                    className="flex-1 bg-[#F5C2C2] hover:bg-[#F0A8A8] active:bg-[#EB8E8E] flex justify-center items-center transition-colors duration-200 border-none m-0 rounded-none w-1/2 min-w-0"
+                >
+                    <i className="fas fa-times fa-4x text-red-700"></i>
+                </button>
             </div>
-            <div className="left-container flex-1 h-100" onClick={handleLeftClick}></div>
-            <div className="right-container flex-1 h-100" onClick={handleRightClick}></div>
         </div>
     );
 }
