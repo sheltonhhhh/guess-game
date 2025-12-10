@@ -55,7 +55,6 @@ export const premadeLists = {
   ],
   Food: [
     { hardmode_requirements: ["type", "origin", "name"] },
-    ,
     {
       name: "Indian",
       icon: "fa-drumstick-bite",
@@ -139,13 +138,71 @@ export const premadeLists = {
         "Idiyappam",
         "Prawn Fry",
         "Chili Chicken",
-        "Vegetable Korma"
+        "Vegetable Korma"]
+    },
+    {
+      name: "European",
+      icon: "fa-pizza-slice",
+      items: [
+        "Pizza",
+        "Pasta Carbonara",
+        "Bolognese",
+        "Risotto",
+        "Gelato",
+        "Tiramisu",
+        "Paella",
+        "Tapas",
+        "Churros",
+        "Croissant",
+        "French Onion Soup",
+        "Crepes",
+        "Wiener Schnitzel",
+        "Strudel",
+        "Goulash",
+        "Paprika Chicken",
+        "Pierogi",
+        "Bigos",
+        "Sauerbraten",
+        "Bratwurst & Sauerkraut",
+        "Kartoffelknödel",
+        "Spätzle",
+        "Pretzel",
+        "Fish and Chips",
+        "Shepherd’s Pie",
+        "Irish Stew",
+        "Full English Breakfast",
+        "Haggis",
+        "Moussaka",
+        "Souvlaki",
+        "Rösti",
+        "Fondue",
+        "Belgian Waffles",
+        "Belgian Fries",
+        "Chocolates & Truffles",
+        "Spanish Omelet",
+        "Patatas Bravas",
+        "Empanadas",
+        "Cevapcici",
+        "Burek",
+
+        "Ratatouille",
+        "Cheese Platters",
+        "Pfannkuchen",
+        "Strudel",
+        "Coffee ",
+        "Gyros",
+        "Black Forest Cake",
+        "Tiramisu",
+        "Döner",
+        "Raclette",
+        "Hot Chocolate",
+        "Ice Creams",
+        "Glühwein",
+        "Tapas",
+        "Chocolate",
+        "Wine & Cheese"
       ]
-
-
-
     }
-
   ],
   "Video Games": [
     {
@@ -201,9 +258,7 @@ export const premadeLists = {
         "World of Warcraft",
         "The Sims "
       ]
-
-
-    },
+    }
   ],
   Movies: [
     {
